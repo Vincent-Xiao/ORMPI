@@ -1,18 +1,40 @@
-/**
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  * 
- * @authors VincentXiao (you@example.org)
- * @date    2018-08-13 15:57:15
- * @version $main$
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
+
+/*!
+ *  Copyright (c) 2018 by Contributors
+ * \file nn.cc
+ * \brief The Open Robotic Motion Planning Implementation.
+ * @authors VincentXiao
+ * @date    2018-08-13 15:57:15
+ */
+
 #include "./include/RRT.h"
+#include "../config/config.h"
 #include <string>
 #include <fstream>
 using namespace std;
 using namespace chrono;
+
 vector<box> environmentInit();
-void WritePath(vector<RRTNode*> path, string filename);//write path to file
-vector<DataType> ReadPath(string filename);//read path from file
-#define loopNum 100
+
+#define PickPlace 1
 
 int main()
 {
@@ -38,6 +60,7 @@ int main()
 	DataType startconfig0[FreeDom]={ (DataType)-1.38464, (DataType)0.575081 ,(DataType)- 1.29135, (DataType)- 1.21074 ,(DataType)- 0.758836, (DataType)- 0.25828 ,(DataType)1.69313 };
 	DataType goalconfig0[FreeDom]={ (DataType)-0.60892, (DataType)1.296, (DataType)- 1.99498, (DataType)- 1.47596, (DataType)1.7886, (DataType)- 1.36201, (DataType)- 1.36774 };
 #endif
+
 	vector<DataType> startconfig;
 	vector<DataType> goalconfig;
 	for(int i=0;i<FreeDom;i++)
@@ -82,8 +105,8 @@ int main()
 			//rrt.octoTree.printOctoTree();
 			cout << "octoTree including " << rrt.octoTree.octonum << " nodes" << endl;
 			cout << "time costs "<< double(duration.count()) * microseconds::period::num / microseconds::period::den<< " seconds" << endl;			
-			WritePath(path, "../../PATH.txt"); 
-			WritePath(path, "./PATH.txt");
+			rrt.WritePath(path, "../../PATH.txt"); 
+			rrt.WritePath(path, "./PATH.txt");
 			break;
 		}
 		//vector<DataType> pathFile = ReadPath("../../PATH.txt");
@@ -91,8 +114,8 @@ int main()
 		SuccessCount += rrt.Success;
 		rrt.RRTClear();
 	}
-	cout << "success count: " << SuccessCount << endl;
-	cout << "time cost average: " << double(TimeCosts / SuccessCount) << endl;
+	cout << "success count : " << SuccessCount<<" of "<<loopNum<<" iterations" << endl;
+	cout << "time cost average: " << double(TimeCosts / SuccessCount)<<"s" << endl;
 	rrt.RRTClear();
 	return 0;
 }
@@ -166,51 +189,4 @@ vector<box> environmentInit()
 	BoxVector.push_back(object);
 	return BoxVector;
 }
-void WritePath(vector<RRTNode*> path,string filename)//write path to file
-{
-	ofstream out(filename.c_str(), ios::trunc);
-	if (!out.is_open()) cout << "Error writting " << filename << endl;
-	else
-	{
-		int size = path.size();
-		for (int i = 0; i < size; i++)
-		{
-			for (int j = 0; j < FreeDom; j++) out << path[i]->config[j]<<" ";
-			out << endl;
-		}
-	}
-	out.close();
-	cout << "writing path to " << filename << " success" << endl;
-}
-vector<DataType> ReadPath(string filename)//read path from file
-{
-	vector<DataType> path;
-	ifstream in(filename.c_str(), ios::in);
-	if (!in.is_open()) cout << "Error reading " << filename << endl;
-	else
-	{
-		char line[100]={'\0'};
-		string num="\0";
-		while (!in.eof())
-		{
-			in.getline(line, 100);
-			for(int i=0;i<100;i++)
-			{
-				if (line[i] == '\0') break;
-				else if(line[i]==' ')
-				{
-					path.push_back((DataType)atof(num.c_str()));
-					num = "\0";
-				}
-				else
-				{
-					num += line[i];
-				}
-			}
-			
-		}
-	}
-	in.close();
-	cout << "Reading path from " << filename << " success" << endl;
-	return path;
-}
+

@@ -1,10 +1,33 @@
-
-/**
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  * 
- * @authors VincentXiao (you@example.org)
- * @date    2018-08-21 17:40:04
- * @version $Id$
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
+
+/*!
+ *  Copyright (c) 2018 by Contributors
+ * \file node.h
+ * \brief OctoNode and OctoTree Construction.
+ * @authors VincentXiao
+ * @date    2018-08-21 17:40:04
+ */
+
+#ifndef _NODE_H
+#define _NODE_H
+
 #include <iostream>
 #include <vector>
 #include <chrono>
@@ -12,16 +35,12 @@
 #include "queue"
 #include <string>
 //#include <time.h>
+#include "../../config/config.h"
 #include "../../3rdparty/half-1.12.0/include/half.hpp"
 using half_float::half;
 #define half_max (half)numeric_limits<half>::max()
 #define half_min (half)numeric_limits<half>::min()
-typedef float  DataType;
 
-#define TESTMode 0 //1:print debug info;0:off info
-#define TESHardware 0 //1:print debug info;0:off info
-/******hardware time computing**************/
-#define Period 2e-9 //ns
 using namespace std;
 class OctoNode {
 public:
@@ -70,10 +89,10 @@ class OctoTree
 {
 public:
 	OctoNode *octotree;
-	DataType bounds= (DataType)5;//environment halfwidth
+	DataType bounds= (DataType)OctoTreeBounds;//environment halfwidth
 	long int octonum = 0;
 	long int leafnum = 0;
-	int maxDepth = 5;
+	int maxDepth = OctoTreeMaxDepth;
 	vector<box> objectBox;
 	OctoTree();
 	void clear();//free memory
@@ -98,3 +117,4 @@ public:
 	OctoNode* OctoTreeDecompression(vector<OctoComNode> octoComVector);
 };
 
+#endif

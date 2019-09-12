@@ -1,11 +1,32 @@
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/*!
+ *  Copyright (c) 2018 by Contributors
+ * \file RRT.cpp
+ * \brief Motion Planning Algotirhm base RRT.
+ * @authors VincentXiao
+ * @date    2018-08-13 20:14:36
+ */
 #include "../include/RRT.h"
 using namespace chrono;
-/**
- * 
- * @authors VincentXiao (you@example.org)
- * @date    2018-08-13 20:14:36
- * @version $Id$
- */
 
 int sampleIndex = -1;
 vector<DataType> ReadConfig(string filename)//read config from file
@@ -165,6 +186,56 @@ void RRTTree::printRRTree(string filename)
 	}
 	out.close();
 	
+}
+
+void RRTTree::WritePath(vector<RRTNode*> path,string filename)//write path to file
+{
+	ofstream out(filename.c_str(), ios::trunc);
+	if (!out.is_open()) cout << "Error writting " << filename << endl;
+	else
+	{
+		int size = path.size();
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < FreeDom; j++) out << path[i]->config[j]<<" ";
+			out << endl;
+		}
+	}
+	out.close();
+	cout << "writing path to " << filename << " success" << endl;
+}
+
+vector<DataType> RRTTree::ReadPath(string filename)//read path from file
+{
+	vector<DataType> path;
+	ifstream in(filename.c_str(), ios::in);
+	if (!in.is_open()) cout << "Error reading " << filename << endl;
+	else
+	{
+		char line[100]={'\0'};
+		string num="\0";
+		while (!in.eof())
+		{
+			in.getline(line, 100);
+			for(int i=0;i<100;i++)
+			{
+				if (line[i] == '\0') break;
+				else if(line[i]==' ')
+				{
+					path.push_back((DataType)atof(num.c_str()));
+					num = "\0";
+				}
+				else
+				{
+					num += line[i];
+				}
+			}
+			
+		}
+	}
+	in.close();
+	cout << "Reading path from " << filename << " success" << endl;
+	return path;
 }
 
 int RRTTree::GetIndexRRTree(RRTNode * node)
