@@ -31,14 +31,18 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+/************DataType Config for float or half ************/
+typedef float  DataType;//float or half	
+/************Debug Info Set ************/
 #define TESTMode 0 //1:print debug info;0:off info
+/************OctoTree Config ************/
 #define OctoTreeMaxDepth 5
 #define OctoTreeBounds 2
-typedef float  DataType;//float or half										   
+/************RRT Config ************/									   
 #define RRTBias 0.1 
 #define RRTStepSize 0.2 
 #define RRTMaxIteration 1000 
-
+/************Itration Limit ************/
 #define loopNum 100
 
 /******************Robot config*********************************/
