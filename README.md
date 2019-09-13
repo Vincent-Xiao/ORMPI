@@ -1,4 +1,4 @@
-# ORMPI | [Tutorial](https://iostream.io/2019/09/13/github-ormpi-%e5%bc%80%e6%ba%90%e6%9c%ba%e5%99%a8%e4%ba%ba%e8%bf%90%e5%8a%a8%e8%a7%84%e5%88%92%e5%99%a8/)
+# [ORMPI](https://github.com/Vincent-Xiao/ORMPI) | [教程](https://iostream.io/2019/09/13/github-ormpi-%e5%bc%80%e6%ba%90%e6%9c%ba%e5%99%a8%e4%ba%ba%e8%bf%90%e5%8a%a8%e8%a7%84%e5%88%92%e5%99%a8/)
 
 ORMPI is the **Open Robotic Motion Planning Implementation** for efficiently developing or evaluating  the motion planning algorithm for high degree-of-freedom robots. It supports the complete real-time motion planning procedure which implements robot modeling, planner, kinematics, and collision detection. 
 
