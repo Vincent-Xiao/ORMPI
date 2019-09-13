@@ -1,4 +1,4 @@
-# ORMPI 
+# ORMPI | [Tutorial](https://iostream.io/2019/09/13/github-ormpi-%e5%bc%80%e6%ba%90%e6%9c%ba%e5%99%a8%e4%ba%ba%e8%bf%90%e5%8a%a8%e8%a7%84%e5%88%92%e5%99%a8/)
 
 ORMPI is the **Open Robotic Motion Planning Implementation** for efficiently developing or evaluating  the motion planning algorithm for high degree-of-freedom robots. It supports the complete real-time motion planning procedure which implements robot modeling, planner, kinematics, and collision detection. 
 
@@ -34,10 +34,9 @@ The "**./src/ORMIP.cpp**" is a demo code for how to construct a motion planning 
 4. Define the planner (RRT in demo) to start motion planning
 5. Print the success count of iteration number and the average planning time
 
-<center> 
-  <img src="https://iostream.io/wp-content/uploads/2019/09/PICK-PLACE.png" style="zoom:40%" />
-</center>
-<center>The Pick-Place task</center>
+![The Pick-Place task](https://iostream.io/wp-content/uploads/2019/09/PICK-PLACE-e1568366602215.png)
+
+The Pick-Place task
 
 # Configuration
 
