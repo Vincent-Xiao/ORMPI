@@ -38,7 +38,7 @@ typedef float  DataType;//float or half
 /************OctoTree Config ************/
 #define OctoTreeMaxDepth 5
 #define OctoTreeBounds 2
-/************RRT Config ************/									   
+/************Config ************/									   
 #define RRTBias 0.1 
 #define RRTStepSize 0.2 
 #define RRTMaxIteration 1000 

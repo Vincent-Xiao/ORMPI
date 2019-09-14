@@ -28,7 +28,7 @@ make
 
 The "**./src/ORMIP.cpp**" is a demo code for how to construct a motion planning alogrithm.
 
-1. Define the motion planning environment: this demo use [ROS](https://www.ros.org/) and [Moveit](https://moveit.ros.org/) constructs a pick-place task; and exporting the environment data to ORMPI
+1. Define the motion planning environment: this demo uses [ROS](https://www.ros.org/) and [Moveit](https://moveit.ros.org/) to construct a pick-place task and exports the environment data to ORMPI
 2. Define the center coordinate of environment and build an Octree.
 3. Define a start config (*the rotating angles of the robot arm in configuration space*) and the goal config
 4. Define the planner (RRT in demo) to start motion planning
